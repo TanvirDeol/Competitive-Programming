@@ -31,7 +31,7 @@ public class Main {
     			}
     		}
     	}
-    	System.out.println("Total combinations is "+count+".\r\n" + 
+    	System.out.println("Total combos is "+count+".\r\n" + 
     			"Minimum number of tickets to print is "+min+".");
     	
 	}

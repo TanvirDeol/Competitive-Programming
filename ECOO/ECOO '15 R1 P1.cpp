@@ -9,7 +9,7 @@ int main() {
 		int sum = 0;
 		string inp;
 
-		while (inp.compare("end of box") != 0) {
+		while (inp.compare("EOB") != 0) {
 			getline(cin, inp);
 			char c = inp.at(0);
 			char d = inp.at(1);
