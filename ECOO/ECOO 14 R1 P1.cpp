@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
-
+//e
 int main() {
 	for (int i = 0; i < 10; i++) {
 		int D = 0, H = 0, M = 0;
