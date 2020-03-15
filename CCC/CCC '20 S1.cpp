@@ -4,7 +4,6 @@
 using namespace std;
 typedef long long ll;
 typedef long double ld;
-typedef complex<ld> cd;
 typedef pair<int, int> pi;
 typedef pair<ll, ll> pl;
 typedef pair<ld, ld> pd;
@@ -42,14 +41,14 @@ int main() {
 
 	sort(all(data));
 
-	double max = 0;
-	F0R(i, n - 1) {
-		double speed = abs(data[i + 1].s - data[i].s) / ((abs(data[i + 1].f - data[i].f) * 10.0) / 10.0);
+	double max = 0; 
+	F0R(i, n-1) {
+		double speed = abs(data[i + 1].s - data[i].s) / ((abs(data[i + 1].f - data[i].f)*10.0)/10.0);
 		if (speed > max) {
 			max = speed;
 		}
 	}
-
+	
 	cout << max << endl;
 
 	return 0;
