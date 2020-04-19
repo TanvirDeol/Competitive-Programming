@@ -1,50 +1,49 @@
 #include <bits/stdc++.h>
+#include <unordered_map>
 using namespace std;
-typedef long long ll;
 typedef vector<vector<char>> graph;
+typedef pair<char, char> pi;
+#define mp make_pair
+#define f first
+#define se second
 
-bool dfs(graph& g, char c, vector<bool>& vis) {
-    for (int i = 0; i < g[c - 65].size(); i++) {
-        if (g[c - 65][i] == 'B')return true;
-        else return dfs(g, c, vis);
-    }
-    return false;
-}
 int main()
 {
-    graph roads(26, vector<char>());
-    vector<bool>vis(26, false);
-    vector<string> blockers;
-    int e = 0;
-    vector<string>edges;
-    string inp;
-    while (true) {
-        char a = '0', b = '0';
-        string s; cin >> s;
-        if (s == "**")break;
-        a = s[0]; b = s[1];
-        e++;
-        edges.push_back(s);
-        roads[a - 65].push_back(b);
-        roads[b - 65].push_back(a);
-    }
-    for (int i = 0; i < roads.size(); i++) {
-        char temp = i + 65;
-        cout << temp << "--> ";
-        for (int j = 0; j < roads[i].size(); j++) {
-            cout << roads[i][j] << " ";
-        }cout << endl;
-    }
+	graph net(26, vector<char>());
+	stack<pi> st;
+	vector<pi> ans;
 
-    for (int i = 0; i < edges.size(); i++) {
-        string s = edges[i];
-        int a = s[0] - 65, b = s[1] - 65;
-        if (s[0] - 65 < 2 || s[1] - 65 < 2)continue;
-        vis[a] = true; vis[b] = true;
-        if (!dfs(roads, 'A', vis)) {
-            blockers.push_back(s);
-        }
-    }
+	while (true) {
+		string s; cin >> s;
+		if (s == "**")break;
+		char a = s[0]; char b = s[1];
+		net[a - 65].push_back(b);
+		net[b - 65].push_back(a);
+		st.push(mp(a, b));
+	}
 
-    return 0;
+	while (!st.empty()) {
+		pi cur = st.top(); st.pop();
+		vector<bool>vis(26, false);
+		queue<char>que; que.push('A');
+		bool found = false;
+		while (!que.empty()) {
+			char c = que.front(); que.pop(); vis[c - 65] = true;
+			for (vector<char>::iterator it = net[c - 65].begin(); it != net[c - 65].end(); ++it) {
+				if (c == cur.f) if (*it == cur.se)continue;
+				if (c == cur.se) if (*it == cur.f)continue;
+				if (*it == 'B') { found = true; break; }
+				if (vis[*it - 65])continue;
+				else { que.push(*it); vis[*it - 65] = true; }
+			}
+			if (found)break;
+		}
+		if (!found)ans.push_back(cur);
+	}
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i].f << ans[i].se << endl;
+	}
+	cout << "There are " << ans.size() << " disconnecting roads." << endl;
+
+	return 0;
 }
