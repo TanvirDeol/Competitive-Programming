@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef pair<int, double> pi;
+
+int main() {
+	ll N, M;
+	cin >> N >> M;
+	vector<ll>dorm(N);
+	vector<ll>data(N);
+	vector<ll>lett(M);
+	for (ll i = 0; i < N; i++) {
+		cin >> data[i]; dorm[i] = data[i];
+		if (i > 0)dorm[i] += dorm[i - 1];
+	}
+	for (ll i = 0; i < M; i++) cin >> lett[i];
+
+	for (ll i = 0; i < M; i++) {
+		ll num = lett[i];
+		ll idx = upper_bound(dorm.begin(), dorm.end(), num)-dorm.begin();
+		ll lidx = lower_bound(dorm.begin(), dorm.end(), num) - dorm.begin();
+		if (dorm[lidx] == num) { cout << lidx + 1 << " " << data[lidx] << endl; continue; }
+		else if (idx > 0) {
+			num -= dorm[idx - 1];
+		}
+		cout << idx + 1 << " " << num << endl;
+
+		 
+	
+	}
+	return 0;
+}
